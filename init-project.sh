@@ -108,7 +108,7 @@ CreateProject()
 
 	else
 
-		cat "$readmePath" >> README.md
+		cp ../"$readmePath" .
 		echo "Copied "$readmePath" to README.md file."
 
 	fi
