@@ -3,6 +3,8 @@
 DefaultREADME()
 {
 
+	touch README.md
+
 	echo "# "$1"
 
 ## Overview
@@ -92,26 +94,46 @@ CreateProject()
 
 	git init . > /dev/null
 
-	echo "Please enter a README.md template file."
-	echo "If left empty will use script default."
+	while True
+	do
 
-	touch README.md
+		echo "Please enter a README.md template file."
+		echo "If left empty will use script default."
 
-	readmePath=""
-	read readmePath
+		readmePath=""
+		read readmePath
 
-	if [ -z "$readmePath" ]
-	then
+		if [ -z "$readmePath" ]
+		then
 
-		DefaultREADME "$projectName" README.md
-		echo "Created default README.md file."
+			DefaultREADME "$projectName" README.md
+			echo "Created default README.md file."
+			
+			break
 
-	else
+		else
 
-		cp ../"$readmePath" .
-		echo "Copied "$readmePath" to README.md file."
+			if [ -f ../"$readmePath" ]
+			then
 
-	fi
+				cp ../"$readmePath" .
+				cp "$readmePath" README.md
+
+				echo "Copied "$readmePath" to README.md file."
+
+				break
+
+			else
+
+				echo "Invalid file error. Template README.md file doesn't exist."
+				
+				continue
+
+			fi
+
+		fi
+
+	done
 
 	python3 -m venv venv
 

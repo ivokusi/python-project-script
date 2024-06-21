@@ -27,7 +27,7 @@ When asked about the README.md file make sure to pass the relative path from the
 
 The add-dependencies.sh script:
 
-Allows users to add a single dependency to the python project. No need to initialize the virtual enviornemnt when running the script. 
+Allows users to add dependencies to the python project. No need to initialize the virtual environemnt when running the script. 
 
 The script will also follow 3 states corresponding to:
 
@@ -35,7 +35,15 @@ The script will also follow 3 states corresponding to:
 - statisfied (Yellow)
 - error (Red) 
 
-These sates occur when the dependency is installed succesfully, when the dependency is already installed, and when the dependency couldn't be installed due to an error with pip, respectively.
+These states occur when the dependency is installed succesfully, when the dependency is already installed, and when the dependency couldn't be installed due to an error with pip, respectively.
+
+To execute the script run the following command:
+
+```bash
+bash add-dependencies.sh
+```
+
+Answer the prompts requested by the script. Enter whitespace in between dependenies when you want to eneter more than one dependency at a time.
 
 ## Cloning the project
 
