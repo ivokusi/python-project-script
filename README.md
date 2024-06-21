@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is meant to remove the repetitive step involved in creating a new Python project. This includes 
+This project is meant to remove the repetitive steps involved in creating a new Python project. This includes 
 
 - creating a virtual enviornment
 - creating .env and .gitignore files 
