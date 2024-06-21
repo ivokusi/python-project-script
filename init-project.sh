@@ -129,6 +129,8 @@ CreateProject()
 
 	echo "Created "$projectName""
 
+	cd ..
+
 }
 
 echo "Welcome to the init-project script."
@@ -144,26 +146,31 @@ do
 
 		another=""
 		
-		while [ "$another" != "y" ] || [ "$another" != "n" ]
+		while [ "$another" != "y" ] && [ "$another" != "n" ]
 		do
 			
 			echo "Would you like to create another project today [y/n]"
-			read anotherProject
+			read another
 
 		done
 
 		if [ $another == "y" ]
 		then
 
-			projectCount=$((projectCount + 1))
-			CreateProject()
+			CreateProject
 
-		else
+		else 
 
 			break
 
 		fi
 
-	fi	
+	else
+
+		CreateProject
+
+	fi
+	
+	projectCount=$((projectCount + 1))
 
 done
