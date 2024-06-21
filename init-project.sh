@@ -3,7 +3,7 @@
 DefaultREADME()
 {
 
-	echo "# people-weave-acm-scraper
+	echo "# "$1"
 
 ## Overview
 
@@ -68,8 +68,20 @@ projectName=""
 
 while [ -z "$projectName" ] || [ -d "$projectName" ]
 do
+	
 	echo "Please enter the project name"
 	read projectName
+	
+	# Notice user of possible error in their input
+
+	if [ -z "$projectName" ]
+	then
+		echo "Whitespace Name Error. Project name is empty."
+	elif [ -d "$projectName" ]
+	then 
+		echo "Duplicate Name Error. Project already exists."
+	fi
+
 done
 
 # Create and change to project directory
@@ -91,7 +103,7 @@ read readmePath
 if [ -z "$readmePath" ]
 then
 
-	DefaultREADME README.md
+	DefaultREADME "$projectName" README.md
 	echo "Created default README.md file."
 
 else
