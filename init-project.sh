@@ -57,21 +57,21 @@ python3 main.py
 
 }
 
-echo "Welcome to the init-project script."
-echo "We'll help you build your next python project."
+CreateProject()
+{
 
-# Prompts user for project name.
-# Prompts until a valid name is read.
-# i.e. Can't just be whitespace
+	# Prompts user for project name.
+	# Prompts until a valid name is read.
+	# i.e. Can't just be whitespace
 
-projectName=""
+	projectName=""
 
-while [ -z "$projectName" ] || [ -d "$projectName" ]
-do
-	
+	while [ -z "$projectName" ] || [ -d "$projectName" ]
+	do
+
 	echo "Please enter the project name"
 	read projectName
-	
+
 	# Notice user of possible error in their input
 
 	if [ -z "$projectName" ]
@@ -82,48 +82,88 @@ do
 		echo "Duplicate Name Error. Project already exists."
 	fi
 
+	done
+
+	# Create and change to project directory
+	# "" allow for a project name with whitespaces
+
+	mkdir "$projectName" 
+	cd "$projectName"
+
+	git init . > /dev/null
+
+	echo "Please enter a README.md template file."
+	echo "If left empty will use script default."
+
+	touch README.md
+
+	readmePath=""
+	read readmePath
+
+	if [ -z "$readmePath" ]
+	then
+
+		DefaultREADME "$projectName" README.md
+		echo "Created default README.md file."
+
+	else
+
+		cat "$readmePath" >> README.md
+		echo "Copied "$readmePath" to README.md file."
+
+	fi
+
+	python3 -m venv venv
+
+	echo "Created virtual enviornment."
+
+	touch requirements.txt .gitignore .env
+
+	echo "venv" >> .gitignore
+	echo ".env" >> .gitignore
+
+	echo "Created template files."
+
+	git add .
+	git commit -m "Initialized project from template." > /dev/null
+
+	echo "Created "$projectName""
+
+}
+
+echo "Welcome to the init-project script."
+echo "We'll help you build your next python project."
+
+projectCount=0
+
+while true
+do
+
+	if [ $projectCount -gt 0 ]
+	then
+
+		another=""
+		
+		while [ "$another" != "y" ] || [ "$another" != "n" ]
+		do
+			
+			echo "Would you like to create another project today [y/n]"
+			read anotherProject
+
+		done
+
+		if [ $another == "y" ]
+		then
+
+			projectCount=$((projectCount + 1))
+			CreateProject()
+
+		else
+
+			break
+
+		fi
+
+	fi	
+
 done
-
-# Create and change to project directory
-# "" allow for a project name with whitespaces
-
-mkdir "$projectName" 
-cd "$projectName"
-
-git init . > /dev/null
-
-echo "Please enter a README.md template file."
-echo "If left empty will use script default."
-
-touch README.md
-
-readmePath=""
-read readmePath
-
-if [ -z "$readmePath" ]
-then
-
-	DefaultREADME "$projectName" README.md
-	echo "Created default README.md file."
-
-else
-
-	cat "$readmePath" >> README.md
-	echo "Copied "$readmePath" to README.md file."
-
-fi
-
-python3 -m venv venv
-
-echo "Created virtual enviornment."
-
-touch requirements.txt .gitignore .env
-
-echo "venv" >> .gitignore
-echo ".env" >> .gitignore
-
-echo "Created template files."
-
-git add .
-git commit -m "Initialized project from template." > /dev/null
-
