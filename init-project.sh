@@ -124,6 +124,8 @@ CreateProject()
 
 	echo "Created template files."
 
+	cp ../add-dependencies.sh .
+
 	git add .
 	git commit -m "Initialized project from template." > /dev/null
 
